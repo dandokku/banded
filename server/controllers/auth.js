@@ -40,3 +40,23 @@ export const register = async (res, req) => {
         res.status(500).json({error: err})
     }
 } 
+
+// LOGGING IN
+export const login = async (req, rea) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email: email })
+        if (!user) return res.status(400).json({ msg: "User Does Not Exist" })
+        
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) return res.status(400).json({ msg: "Invalid Details" })
+        
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+        delete user.password
+
+        res.status(500).json({token, user})
+
+    } catch(err) {
+        res.status(500).json({error: err.message})
+    }
+}
