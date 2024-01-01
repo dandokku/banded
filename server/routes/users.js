@@ -8,10 +8,10 @@ import { verifyToken } from "../controllers/auth"
 
 const router = express.Router()
 
-//? The Read Route
-router.get("/:id", verifyToken, getUser)
+//? The Read Route, this route represents the route that help to grab information
+router.get("/:id", verifyToken, getUser) 
 router.get("/:id/friends", verifyToken, getUserFriends)
-router.get("/:id/:friendId", verifyToken, addRemoveFriend)
+router.get("/:id/:friendId", verifyToken, addRemoveFriend) //! Update Router
 
 export default router
 

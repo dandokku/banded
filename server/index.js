@@ -10,6 +10,7 @@ import path from "path"
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth"
 import userRoutes from "./routes/users"
+import postRoute from "./routes/posts"
 import { register } from "./controllers/auth";
 
 // Configurations
@@ -48,6 +49,8 @@ app.post("/auth/register", upload.single("picture"), register)
 // Routes
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
+app.use("/posts", postRoute)
+
 
 // Mongoose Setup
 const PORT = process.env.PORT || 6000
