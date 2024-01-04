@@ -8,12 +8,15 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path"
 import { fileURLToPath } from "url";
-import authRoutes from "./routes/auth"
-import userRoutes from "./routes/users"
-import postRoute from "./routes/posts"
-import { register } from "./controllers/auth";
-import { verifyToken } from "./middleware/auth";
-import {createPost} from "./controllers/posts"
+import authRoutes from "./routes/auth.js"
+import userRoutes from "./routes/users.js"
+import postRoute from "./routes/posts.js"
+import { register } from "./controllers/auth.js";
+import { verifyToken } from "./middleware/auth.js";
+import { createPost } from "./controllers/posts.js"
+import User from "./models/User.js";
+import Post from "./models/Post.js";
+import { users, posts } from "./data/index.js";
 
 // Configurations
 const __filename = fileURLToPath(import.meta.url)
@@ -47,7 +50,7 @@ const upload = multer({ storage });
 
 // Routes With Files
 app.post("/auth/register", upload.single("picture"), register)
-app.post("/posts", verifyToken, upload.single("picture"))
+app.post("/posts", verifyToken, upload.single("picture"), createPost)
 
 // Routes
 app.use("/auth", authRoutes)
@@ -61,6 +64,11 @@ mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
-    app.listen(PORT, ()=> console.log(`Server Port: ${PORT} `))
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}, We are in Boys `))
+
+    //! add data only once
+    // User.insertMany(users)
+    // Post.insertMany(posts)
 }).catch((error) => console.error(`MongoDB Connection Error: ${error.message}`));
 
+ 
