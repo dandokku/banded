@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import Home from "scenes/home/Home"
 import Login from "scenes/login/Login"
 import Profile from "scenes/profile/Profile"
+import NavBar from "scenes/navbar/NavBar"
 
 import { useMemo } from "react"
 import { useSelector } from "react-redux"
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/" element={<Profile />} />
+            <Route path="/navbar" element={<NavBar />} />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

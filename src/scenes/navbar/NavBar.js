@@ -46,7 +46,7 @@ function NavBar() {
     const primaryLight = theme.palette.primary.light
     const alt = theme.palette.background.alt
 
-    const fullName = `${user.firstName} ${user.lastName}`
+    // const fullame = `${user.firstName} ${user.lastName}`
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -68,15 +68,41 @@ function NavBar() {
               >
                   Banded
               </Typography> 
+              {
+                  isNonMobileScreens && (
+                    <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem" > 
+                        <InputBase placeholder='Search...' />
 
-              <FlexBetween backgroundColor={neutralLight} borderRadius="15px" gap="3rem" padding="0.1rem 1.5rem" > 
-                  <InputBase placeholder='Search...' />
-
-                  <IconButton>
-                      <Search />
-                  </IconButton>
-              </FlexBetween>
+                        <IconButton>
+                            <Search />
+                        </IconButton>
+                    </FlexBetween>
+                  )
+              }
           </FlexBetween>
+
+          {/* Desktop NavBar Display */}
+          {
+              isNonMobileScreens ? (
+                  <FlexBetween gap="2rem">
+                      <IconButton onClick={() => dispatch(setMode())}>
+                          {theme.palette.mode === "dark" ? (<DarkMode sx={{ fontSize: "25px" }} />) : (
+                              <LightMode sx={{color: dark, fontSize: "25px"}} />
+                          )}
+                      </IconButton> 
+
+                      <Message sx={{ fontSize: "25px" }} />
+                      <Notifications sx={{ fontSize: "25px" }} />
+                      <Help sx={{fontSize: "25px"}} />
+
+                      
+                </FlexBetween>
+              ) : (
+                  <IconButton></IconButton>
+              )
+
+          }
+
     </FlexBetween>
   )
 }
