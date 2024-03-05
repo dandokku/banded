@@ -1,17 +1,20 @@
-import express from "express"
+import express from "express";
 import {
     getUser,
     getUserFriends,
     addRemoveFriend,
-} from "../controllers/users.js"  //* I am importing these functions from the users controllers
-import { verifyToken } from "../middleware/auth.js"
+} from "../controllers/users.js";
+import { verifyToken } from "../middleware/auth.js";
 
-const router = express.Router()
+const router = express.Router();
 
-//? The Read Route, this route represents the route that help to grab information
-router.get("/:id", verifyToken, getUser) 
-router.get("/:id/friends", verifyToken, getUserFriends)
-router.get("/:id/:friendId", verifyToken, addRemoveFriend) //! Update Router
+// Read Route: Get user by ID
+router.get("/:id", verifyToken, getUser);
 
-export default router
+// Read Route: Get user's friends
+router.get("/:id/friends", verifyToken, getUserFriends);
 
+// Update Route: Add/remove friend for a user
+router.put("/:id/friends/:friendId", verifyToken, addRemoveFriend);
+
+export default router;

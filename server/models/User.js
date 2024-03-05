@@ -1,7 +1,11 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
     {
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
+        },
         firstName: {
             type: String,
             required: true,
@@ -39,8 +43,8 @@ const UserSchema = new mongoose.Schema(
         viewedProfile: Number,
         impressions: Number,
     },
-    {timestamps: true}
-)
+    { timestamps: true }
+);
 
-const User = mongoose.model("User", UserSchema)
+const User = mongoose.model("User", UserSchema);
 export default User;

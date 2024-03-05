@@ -10,6 +10,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 
 import storage from "redux-persist/lib/storage"
 import { PersistGate } from 'redux-persist/integration/react';
+// import { ReactQueryDevtools } from "react-query/devtools"
 
 // Configuration for Redux-persist
 const persistConfig = { key: "root", storage, version: 1 }
@@ -38,6 +39,7 @@ root.render(
       <PersistGate loading={null} persistor={persistStore(store)}>
         <App />
       </PersistGate>
+      {/* <ReactQueryDevtools/> */}
     </Provider>
   </React.StrictMode>
 );
