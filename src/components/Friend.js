@@ -22,19 +22,31 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const isFriend = friends.find((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+    try {
+      const response = await fetch(
+        `http://localhost:3001/users/${_id}/${friendId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`Failed to patch friend: ${response.statusText}`);
       }
-    );
-    const data = await response.json();
-    dispatch(setFriends({ friends: data }));
+  
+      const data = await response.json();
+      dispatch(setFriends({ friends: data }));
+    } catch (error) {
+      console.error("Error patching friend:", error.message);
+      // You can handle the error here, such as displaying a notification to the user.
+    }
   };
+  
+  
 
   return (
     <FlexBetween>
